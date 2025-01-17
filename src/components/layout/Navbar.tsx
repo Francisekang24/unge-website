@@ -7,8 +7,12 @@ import {
     NavigationMenuItem,
     NavigationMenuTrigger,
     NavigationMenuContent,
-    NavigationMenuLink
+    NavigationMenuLink,
 } from "../ui/navigation-menu";
+
+import { Button } from "../ui/button";
+import { MobileMenu } from "./MobileMenu";
+
 
 
 const faculties = [
@@ -33,105 +37,129 @@ const resources = [
 ]
 export default function Navbar() {
 
+    const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+
     return (
         <header className="sticky top-0 z-50 w-full p-4 border-b bg-green-950 bg-opacity-90">
             <div className="container flex h-20 items-end justify-between">
                 <Link href="/">
                     <a className="mr-8 flex flex-col items-start space-x-2 bg-green-950 rounded-[10px] p-2">
-                        <div className="ml-2 flex items-center justify-center gap-2">
+                        <div className="ml-2 flex flex-col md:flex-row items-center justify-center gap-2">
                             <img src="/logo.png" alt="UNGE" className="w-12 h-12" />
                             <span className="text-xl text-center font-bold text-primary">UNGE</span>
                         </div>
-                        <span className="text-md font-bold text-primary">Universidad Nacional De Guinea Ecuatorial</span>
+                        <span className="hidden text-md font-bold text-primary lg:block lg:whitespace-nowrap lg:max-w-[1300px]">Universidad Nacional De Guinea Ecuatorial</span>
                     </a>
                 </Link>
 
-                <NavigationMenu>
-                    <NavigationMenuList>
-                        <NavigationMenuItem>
-                            <NavigationMenuTrigger>Facultades</NavigationMenuTrigger>
-                            <NavigationMenuContent className="bg-green-900">
-                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                                    <li className="col-span-2">
-                                        <Link href="/Departments">
-                                            <a className={cn(
-                                                "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-lg font-bold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                                            )}>
-                                                Departamentos
-                                            </a>
-                                        </Link>
-                                    </li>
-                                    {faculties.map((facultie) => (
-                                        <ListItem
-                                            key={facultie.title}
-                                            title={facultie.title}
-                                            href={facultie.href}
-                                        >
-                                        </ListItem>
-                                    ))}
-                                </ul>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>
+                <div className="flex flex-1 items-center justify-end space-x-4 md:justify-between">
+                    <nav className="hidden font-bold sm:inline-block">
+                        <NavigationMenu>
+                            <NavigationMenuList>
+                                <NavigationMenuItem>
+                                    <NavigationMenuTrigger>Facultades</NavigationMenuTrigger>
+                                    <NavigationMenuContent className="bg-green-900">
+                                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                                            <li className="col-span-2">
+                                                <Link href="/Departments">
+                                                    <a className={cn(
+                                                        "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-lg font-bold transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                                                    )}>
+                                                        Departamentos
+                                                    </a>
+                                                </Link>
+                                            </li>
+                                            {faculties.map((facultie) => (
+                                                <ListItem
+                                                    key={facultie.title}
+                                                    title={facultie.title}
+                                                    href={facultie.href}
+                                                >
+                                                </ListItem>
+                                            ))}
+                                        </ul>
+                                    </NavigationMenuContent>
+                                </NavigationMenuItem>
 
-                        <NavigationMenuItem>
-                            <Link href="/academics">
-                                <a className={cn(
-                                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                                )}>
-                                    Asuntos Academicos
-                                </a>
-                            </Link>
-                        </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/academics">
+                                        <a className={cn(
+                                            "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                                        )}>
+                                            Asuntos Academicos
+                                        </a>
+                                    </Link>
+                                </NavigationMenuItem>
 
-                        <NavigationMenuItem>
-                            <Link href="/business">
-                                <a className={cn(
-                                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                                )}>
-                                    Administracion
-                                </a>
-                            </Link>
-                        </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/business">
+                                        <a className={cn(
+                                            "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                                        )}>
+                                            Administracion
+                                        </a>
+                                    </Link>
+                                </NavigationMenuItem>
 
 
 
-                        <NavigationMenuItem>
-                            <Link href="/faculty">
-                                <a className={cn(
-                                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                                )}>
-                                    Actualidad
-                                </a>
-                            </Link>
-                        </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/faculty">
+                                        <a className={cn(
+                                            "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                                        )}>
+                                            Actualidad
+                                        </a>
+                                    </Link>
+                                </NavigationMenuItem>
 
-                        <NavigationMenuItem>
-                            <Link href="/registrar">
-                                <a className={cn(
-                                    "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                                )}>
-                                    Oficina de Registro
-                                </a>
-                            </Link>
-                        </NavigationMenuItem>
+                                <NavigationMenuItem>
+                                    <Link href="/registrar">
+                                        <a className={cn(
+                                            "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                                        )}>
+                                            Oficina de Registro
+                                        </a>
+                                    </Link>
+                                </NavigationMenuItem>
 
-                        <NavigationMenuItem>
-                            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                            <NavigationMenuContent className="bg-green-900">
-                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                                    {resources.map((resource) => (
-                                        <ListItem
-                                            key={resource.title}
-                                            title={resource.title}
-                                            href={resource.href}
-                                        >
-                                        </ListItem>
-                                    ))}
-                                </ul>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>
-                    </NavigationMenuList>
-                </NavigationMenu>
+                                <NavigationMenuItem>
+                                    <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                                    <NavigationMenuContent className="bg-green-900">
+                                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                                            {resources.map((resource) => (
+                                                <ListItem
+                                                    key={resource.title}
+                                                    title={resource.title}
+                                                    href={resource.href}
+                                                >
+                                                </ListItem>
+                                            ))}
+                                        </ul>
+                                    </NavigationMenuContent>
+                                </NavigationMenuItem>
+                            </NavigationMenuList>
+                        </NavigationMenu>
+                    </nav>
+                    <div className="flex items-center">
+                        <Button
+                            variant="ghost"
+                            className="md:hidden"
+                            onClick={() => setMobileMenuOpen(true)}
+                        >
+                            <span>Open Menu</span>
+                            <menu className="h6 w6" aria-hidden='true' />
+                        </Button>
+                    </div>
+                </div>
+            </div>
+            <div className="bg-green-950 bg-opacity-90">
+                <MobileMenu
+                    isOpen={isMobileMenuOpen}
+                    setIsOpen={setMobileMenuOpen}
+                    faculties={faculties}
+                    resources={resources}
+                />
             </div>
         </header>
     )
